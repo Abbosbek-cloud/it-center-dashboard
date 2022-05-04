@@ -1,8 +1,6 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Form, Input, message, Modal, Select, Table } from "antd";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { URL } from "../constants/api";
+import { Form, Input, Modal, Table } from "antd";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 
 const formLayout = {
@@ -16,7 +14,7 @@ const formLayout = {
 
 const Tutors = () => {
   const [tutor, setTutor] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [selected, setSelected] = useState("");
 
@@ -25,6 +23,7 @@ const Tutors = () => {
     { title: "Fullname", dataIndex: "fullname" },
     { title: "Username", dataIndex: "username" },
     { title: "Address", dataIndex: "address" },
+
     {
       title: "Actions",
       render: (row) => (
@@ -32,7 +31,10 @@ const Tutors = () => {
           <button onClick={() => editTutor(row)} className="btn btn-primary">
             <EditOutlined />
           </button>
-          <button onClick={() => deleteTutor(row)} className="btn btn-danger">
+          <button
+            onClick={() => deleteTutor(row.id)}
+            className="btn btn-danger"
+          >
             <DeleteOutlined />
           </button>
         </div>
@@ -40,60 +42,11 @@ const Tutors = () => {
     },
   ];
 
-  useEffect(() => {
-    getTutors();
-  }, []);
-
-  const editTutor = (tutor) => {
-    setSelected(tutor);
-    setIsModalVisible(true);
-    form.setFieldsValue(tutor);
-  };
-
-  const deleteTutor = (tutor) => {
-    axios.delete(URL + "admin/tutor/delete" + tutor.id).then((res) => {
-      getTutors();
-      message.info("Tutor o'chirildi");
-    });
-
-    setTutor([...tutor.filter((item) => item.id !== tutor.id)]);
-  };
-
-  const getTutors = () => {
-    axios.get(URL + "admin/tutors").then((res) => setTutor(res.data));
-  };
-
   const addTutor = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        delete values.confirm;
-        setTutor([...tutor, values]);
-        selected
-          ? axios
-              .put(URL + `admin/tutor/edit${selected.id}`, values)
-              .then((res) => {
-                setIsModalVisible(false);
-                form.resetFields();
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-          : axios
-              .post(URL + `admin/tutor/save`, values)
-              .then((res) => {
-                setIsModalVisible(false);
-                form.resetFields();
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-        form.resetFields();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setIsModalVisible(false);
+    form.validateFields().then((values) => {
+      setTutor([...tutor, { ...values, id: tutor.length + 1 }]);
+      setIsModalVisible(false);
+    });
   };
 
   const handleCancel = () => {
@@ -104,21 +57,26 @@ const Tutors = () => {
     setIsModalVisible(true);
   };
 
-  console.log(tutor);
-
-  const editTutorItem = () => {
+  const deleteTutor = (id) => {
     form.validateFields().then((values) => {
-      const newTutors = tutor.map((item) => {
-        if (item === values) {
-          return { ...item, values };
-        } else {
-          return item;
-        }
-      });
-      setTutor([...tutor, newTutors]);
+      const filtered = tutor.filter((item) => item.id !== id);
+      setTutor([...filtered]);
     });
-    setIsModalVisible(false);
-    form.resetFields();
+  };
+
+  const editTutor = (tutor) => {
+    setSelected(tutor);
+    setIsModalVisible(true);
+    form.setFieldsValue(tutor);
+  };
+
+  const editTutorItem = (id) => {
+    form.validateFields().then((values) => {
+      const newArr = tutor.filter((item) => item.id !== selected.id);
+      setTutor([...newArr, { ...values, id: selected.id }]);
+      setIsModalVisible(false);
+      form.resetFields();
+    });
   };
 
   return (
@@ -138,19 +96,14 @@ const Tutors = () => {
       <Modal
         title="Basic modal"
         visible={isModalVisible}
-        onOk={selected ? editTutorItem : addTutor}
+        onOk={() => {
+          selected ? editTutorItem() : addTutor();
+        }}
         okText={selected ? "Saqlash" : "Qo'shish"}
         onCancel={handleCancel}
         cancelText="Bekor qilish"
       >
         <Form {...formLayout} form={form}>
-          <Form.Item
-            label="Id"
-            name="id"
-            rules={[{ required: true, message: "To'ldirilmagan" }]}
-          >
-            <Input autoComplete="true" placeholder="Id" />
-          </Form.Item>
           <Form.Item
             label="Fullname"
             name="fullname"

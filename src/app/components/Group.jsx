@@ -12,7 +12,7 @@ const formLayout = {
   },
 };
 
-const Grouops = () => {
+const Group = () => {
   const [group, setGroup] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -43,7 +43,8 @@ const Grouops = () => {
 
   const addGroup = () => {
     form.validateFields().then((values) => {
-      setGroup([...group, values]);
+      console.info(values);
+      setGroup([...group, { id: group.length + 1, ...values }]);
       setIsModalVisible(false);
     });
   };
@@ -69,32 +70,10 @@ const Grouops = () => {
     form.setFieldsValue(group);
   };
 
-  const editGroupItem = (id) => {
+  const editGroupItem = () => {
     form.validateFields().then((values) => {
-      const indexItem = group.filter((item) => item.id === values.id);
-
-      const index = group.indexOf(indexItem);
-      console.log(index);
-      const oldItem = group[index];
-
-      const newItem = {
-        ...oldItem,
-        id: values.id,
-        group: values.group,
-        pupilCount: values.pupilCount,
-        teacher: values.teacher,
-      };
-
-      // console.log(newItem);
-
-      const newArr = [
-        ...group.slice(0, index),
-        newItem,
-        ...group.slice(index + 1),
-      ];
-
-      setGroup([...newArr]);
-      setIsModalVisible(false);
+      const newArr = group.filter((item) => item.id !== selected.id);
+      setGroup([...newArr, { ...values, id: selected.id }]);
     });
   };
 
@@ -116,20 +95,13 @@ const Grouops = () => {
         title="Basic modal"
         visible={isModalVisible}
         onOk={() => {
-          selected ? editGroupItem() : addGroup;
+          selected ? editGroupItem() : addGroup();
         }}
         okText={selected ? "Saqlash" : "Qo'shish"}
         onCancel={handleCancel}
         cancelText="Bekor qilish"
       >
         <Form style={{ top: "100px !important" }} {...formLayout} form={form}>
-          <Form.Item
-            label="Id"
-            name="id"
-            rules={[{ required: true, message: "To'ldirilmagan" }]}
-          >
-            <Input autoComplete="true" placeholder="Id" />
-          </Form.Item>
           <Form.Item
             label="group"
             name="group"
@@ -157,4 +129,4 @@ const Grouops = () => {
   );
 };
 
-export default Grouops;
+export default Group;
