@@ -41,6 +41,8 @@ const Grouops = () => {
     },
   ];
 
+
+  //worked
   const addGroup = () => {
     form.validateFields().then((values) => {
       setGroup([...group, values]);
@@ -48,27 +50,32 @@ const Grouops = () => {
     });
   };
 
+  //worked
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
+  //worked
   const showModal = () => {
     setIsModalVisible(true);
   };
-
+  
+  //worked
   const deleteGroup = (id) => {
     form.validateFields().then((values) => {
       const filtered = group.filter((item) => item.id !== id);
       setGroup([...filtered]);
     });
-  };
+  };  
 
+  //worked
   const editGroup = (group) => {
     setSelected(group);
     setIsModalVisible(true);
     form.setFieldsValue(group);
   };
 
+  // ERROR
   const editGroupItem = (id) => {
     form.validateFields().then((values) => {
       const indexItem = group.filter((item) => item.id === values.id);
@@ -76,7 +83,8 @@ const Grouops = () => {
       const index = group.indexOf(indexItem);
       console.log(index);
       const oldItem = group[index];
-
+      
+      // only this side worked properly
       const newItem = {
         ...oldItem,
         id: values.id,
