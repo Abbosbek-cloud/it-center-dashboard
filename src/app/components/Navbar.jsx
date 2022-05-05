@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -16,31 +15,28 @@ const Navbar = (props) => {
   const toggle = () => {
     setCllapsed(!collapsed);
   };
+
   return (
     <div>
       <Layout id="components-layout-demo-custom-trigger">
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[`1`]}>
             <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link style={{ textDecoration: "none" }} to="/">
-                Dashboard
-              </Link>
+              <span>Dashboard</span>
+              <Link to="/" />
             </Menu.Item>
             <Menu.Item key="2" icon={<UserOutlined />}>
-              <Link style={{ textDecoration: "none" }} to="/groups">
-                Groups
-              </Link>
+              <span>Groups</span>
+              <Link to="/groups" />
             </Menu.Item>
             <Menu.Item key="3" icon={<VideoCameraOutlined />}>
-              <Link style={{ textDecoration: "none" }} to="/tutors">
-                Tutors
-              </Link>
+              <span>Tutors</span>
+              <Link to="/tutors" />
             </Menu.Item>
             <Menu.Item key="4" icon={<UserOutlined />}>
-              <Link style={{ textDecoration: "none" }} to="/students">
-                Students
-              </Link>
+              <span>Students</span>
+              <Link to="/students" />
             </Menu.Item>
           </Menu>
         </Sider>

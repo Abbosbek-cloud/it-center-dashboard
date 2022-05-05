@@ -43,7 +43,6 @@ const Group = () => {
 
   const addGroup = () => {
     form.validateFields().then((values) => {
-      console.info(values);
       setGroup([...group, { id: group.length + 1, ...values }]);
       setIsModalVisible(false);
     });
@@ -74,6 +73,9 @@ const Group = () => {
     form.validateFields().then((values) => {
       const newArr = group.filter((item) => item.id !== selected.id);
       setGroup([...newArr, { ...values, id: selected.id }]);
+      setIsModalVisible(false);
+      form.resetFields();
+      setSelected("");
     });
   };
 
@@ -84,7 +86,7 @@ const Group = () => {
         dataSource={group}
         title={() => (
           <div className="d-flex justify-content-between align-items-center">
-            <h3>Tutors</h3>
+            <h3>Groups</h3>
             <button onClick={showModal} className="btn btn-primary">
               Add
             </button>

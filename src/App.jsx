@@ -1,6 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Dashboard from "./app/components/Dashboard";
-import Grouops from "./app/components/Grouops";
 import Group from "./app/components/Group";
 import Students from "./app/components/Students";
 import Tutors from "./app/components/Tutors";

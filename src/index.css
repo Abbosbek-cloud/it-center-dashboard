@@ -52,3 +52,9 @@ a {
 .ant-table-container::-webkit-scrollbar-track {
   border-radius: 5px;
 }
+
+.pupil-cont {
+  margin-top: 10px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}

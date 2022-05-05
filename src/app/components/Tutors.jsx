@@ -20,10 +20,9 @@ const Tutors = () => {
 
   const columns = [
     { title: "#", dataIndex: "id" },
-    { title: "Fullname", dataIndex: "fullname" },
-    { title: "Username", dataIndex: "username" },
-    { title: "Address", dataIndex: "address" },
-
+    { title: "Tutor name", dataIndex: "tutorname" },
+    { title: "Teacher", dataIndex: "teacher" },
+    { title: "Classrom", dataIndex: "classrom" },
     {
       title: "Actions",
       render: (row) => (
@@ -44,6 +43,7 @@ const Tutors = () => {
 
   const addTutor = () => {
     form.validateFields().then((values) => {
+      delete values.confirm;
       setTutor([...tutor, { ...values, id: tutor.length + 1 }]);
       setIsModalVisible(false);
     });
@@ -70,12 +70,13 @@ const Tutors = () => {
     form.setFieldsValue(tutor);
   };
 
-  const editTutorItem = (id) => {
+  const editTutorItem = () => {
     form.validateFields().then((values) => {
       const newArr = tutor.filter((item) => item.id !== selected.id);
       setTutor([...newArr, { ...values, id: selected.id }]);
       setIsModalVisible(false);
       form.resetFields();
+      setSelected("");
     });
   };
 
@@ -105,29 +106,22 @@ const Tutors = () => {
       >
         <Form {...formLayout} form={form}>
           <Form.Item
-            label="Fullname"
-            name="fullname"
+            label="Tutor name"
+            name="tutorname"
+            rules={[{ required: true, message: "To'ldirilmagan" }]}
+          >
+            <Input autoComplete="true" placeholder="Tutor nomini kiriting" />
+          </Form.Item>
+          <Form.Item
+            label="Teacher"
+            name="teacher"
             rules={[{ required: true, message: "To'ldirilmagan" }]}
           >
             <Input autoComplete="true" placeholder="Full name" />
           </Form.Item>
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: "To'ldirilmagan" }]}
-          >
-            <Input autoComplete="true" placeholder="Full name" />
-          </Form.Item>
-          <Form.Item
-            label="Address"
-            name="address"
-            rules={[{ required: true, message: "To'ldirilmagan" }]}
-          >
-            <Input autoComplete={true} placeholder="Address" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            label="Password"
+            name="Classrom"
+            label="classrom"
             rules={[
               {
                 required: true,
@@ -140,8 +134,8 @@ const Tutors = () => {
           </Form.Item>
 
           <Form.Item
-            name="confirm"
             label="Confirm Password"
+            name="confirm"
             dependencies={["password"]}
             hasFeedback
             rules={[
