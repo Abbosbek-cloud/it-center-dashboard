@@ -4,6 +4,7 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
+  VideoCameraOutlined,
   BookOutlined,
   FolderOpenOutlined,
   LeftSquareOutlined,
@@ -12,20 +13,20 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
-const Navbar = (props) => {
+const UserLayout = (props) => {
   const [collapsed, setCllapsed] = useState(false);
+  const navigate = useNavigate();
+  const isUserExist = localStorage.getItem("Token");
+
   useEffect(() => {
-    if (isAdmin === null || undefined) {
+    if (isUserExist === null || undefined) {
       navigate("/login");
     }
-    console.log(isAdmin);
   }, []);
-  const navigate = useNavigate();
+
   const toggle = () => {
     setCllapsed(!collapsed);
   };
-
-  const isAdmin = localStorage.getItem("isAdminAuthenticated");
 
   const exit = () => {
     navigate("/");
@@ -44,7 +45,7 @@ const Navbar = (props) => {
             </Menu.Item>
             <Menu.Item key="3" icon={<FolderOpenOutlined />}>
               <span>Kurslar</span>
-              <Link to="tutors" />
+              <Link to="tutor" />
             </Menu.Item>
             <Menu.Item key="4" icon={<BookOutlined />}>
               <span>Kutubxona</span>
@@ -75,6 +76,7 @@ const Navbar = (props) => {
               overflow: "scroll",
             }}
           >
+            {/* {props.children} */}
             <Outlet />
           </Content>
         </Layout>
@@ -83,4 +85,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default UserLayout;
