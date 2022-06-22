@@ -52,6 +52,7 @@ const Tutors = () => {
       },
     }).then((res) => {
       setTutor(res.data.data.data);
+      setLoading(false);
     });
   };
 
