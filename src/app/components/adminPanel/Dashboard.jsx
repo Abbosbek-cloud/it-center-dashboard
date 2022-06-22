@@ -23,6 +23,7 @@ const base = "https://coursesnodejs.herokuapp.com/";
 
 const Dashboard = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [data, setData] = useState([]);
   const [form] = Form.useForm();
 
   const roleId = "62b3035f8a51f81a13adba40";
@@ -47,7 +48,7 @@ const Dashboard = () => {
         Authorization: `Bearer ${tokenOfAdmin}`,
       },
     }).then((res) => {
-      console.log(res.data.data.data);
+      setData(res.data.data.data);
     });
   };
 
@@ -56,6 +57,10 @@ const Dashboard = () => {
   };
 
   const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleOk = () => {
     setIsModalVisible(false);
   };
 
