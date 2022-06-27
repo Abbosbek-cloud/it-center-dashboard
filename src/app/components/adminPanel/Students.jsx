@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Badge,
   Button,
   Card,
   Col,
@@ -20,6 +21,7 @@ import {
 } from "@ant-design/icons";
 import axios from "axios";
 import { BASE_URL } from "./api";
+import PrevNext from "../mainComponents/PrevNext";
 
 export const formLayout = {
   labelCol: {
@@ -177,7 +179,26 @@ const Students = () => {
                   marginTop: 16,
                   flex: 1,
                 }}
-                cover={<img src={item.imgUrl} />}
+                cover={
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "250px",
+                      objectFit: "cover",
+                    }}
+                    src={
+                      item.imgUrl.slice(0, 4) === "img/"
+                        ? `${BASE_URL}${item.imgUrl}`
+                        : item.imgUrl.slice(0, 4) === null ||
+                          item.imgUrl.slice(0, 4) !== "http"
+                        ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
+                        : item.imgUrl
+                    }
+                    onClick={() => {
+                      console.log(item.imgUrl.slice(0, 4));
+                    }}
+                  />
+                }
                 actions={[
                   <SettingOutlined key="setting" />,
                   <EditOutlined key="edit" onClick={() => onEdit(item)} />,
@@ -216,37 +237,7 @@ const Students = () => {
             </Card>
           </Col>
         )}
-        <Row
-          style={{
-            width: "100%",
-          }}
-          className="d-flex justify-content-between align-items-center"
-        >
-          <Col>
-            <Button
-              type="primary"
-              disabled={page === 1 ? true : false}
-              onClick={() => {
-                setPage(page === 1 ? 1 : page - 1);
-                getBooks();
-              }}
-            >
-              Page {page === 1 ? 1 : page - 1}
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              type="primary"
-              disabled={page === book.length ? true : false}
-              onClick={() => {
-                setPage(page === book.length ? book.length : page + 1);
-                getBooks();
-              }}
-            >
-              Page {page}
-            </Button>
-          </Col>
-        </Row>
+        <PrevNext item={book} page={page} func={getBooks} setLer={setPage} />
         <Modal
           title="Basic Modal"
           visible={isModalVisible}

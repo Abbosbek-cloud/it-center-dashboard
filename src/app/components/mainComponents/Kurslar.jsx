@@ -38,15 +38,25 @@ const Kurslar = () => {
 
       <Row gutter={[16, 16]} className="container justify-content-between">
         {categories.map((book) => (
-          <Col xs={24} sm={24} md={6} key={uuidv4()}>
+          <Col xs={24} sm={12} md={8} xl={6} key={uuidv4()}>
             <Card
               hoverable
               style={{ width: "100%" }}
               cover={
                 <img
                   alt="example"
-                  src={book.imgUrl}
-                  style={{ height: "150px", objectFit: "cover" }}
+                  src={
+                    book.imgUrl.slice(0, 4) === "img/"
+                      ? `${URL}${book.imgUrl}`
+                      : book.imgUrl.slice(0, 4) === null ||
+                        book.imgUrl.slice(0, 4) !== "http"
+                      ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
+                      : book.imgUrl
+                  }
+                  onClick={() => {
+                    console.log(book.imgUrl.slice(0, 4));
+                  }}
+                  style={{ height: "250px", objectFit: "cover" }}
                 />
               }
             >

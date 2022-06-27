@@ -11,6 +11,7 @@ import Books from "./app/components/userPanel/Books";
 import UserLayout from "./app/components/userPanel/Layout";
 import Navbar from "./app/components/Navbar";
 import Login from "./app/components/Login";
+import LandingPage from "./app/LandingPage";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <Route path="tutors" element={<Tutors />} />
             <Route path="library" element={<Students />} />
           </Route>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<LandingPage />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

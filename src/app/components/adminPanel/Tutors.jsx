@@ -18,6 +18,7 @@ import {
 } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import PrevNext from "../mainComponents/PrevNext";
 import { BASE_URL } from "./api";
 
 const formLayout = {
@@ -36,6 +37,7 @@ const Tutors = () => {
   const [form] = Form.useForm();
   const [selected, setSelected] = useState("");
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   const { Meta } = Card;
 
@@ -137,7 +139,20 @@ const Tutors = () => {
                   marginTop: 16,
                   flex: 1,
                 }}
-                cover={<img src={item.imgUrl} />}
+                hoverable
+                cover={
+                  <img
+                    style={{ height: "250px", objectFit: "cover" }}
+                    src={
+                      item.imgUrl.slice(0, 4) === "img/"
+                        ? `${URL}${item.imgUrl}`
+                        : item.imgUrl.slice(0, 4) === null ||
+                          item.imgUrl.slice(0, 4) !== "http"
+                        ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
+                        : item.imgUrl
+                    }
+                  />
+                }
                 actions={[
                   <SettingOutlined key="setting" />,
                   <EditOutlined key="edit" onClick={() => onEdit(item)} />,
@@ -150,7 +165,7 @@ const Tutors = () => {
                 <Skeleton loading={false} avatar active>
                   <Meta
                     title={item.name.split(",").slice(0, 1)}
-                    description={item.description}
+                    description={`${item.description.slice(0, 15)}...`}
                   />
                 </Skeleton>
               </Card>
@@ -179,6 +194,7 @@ const Tutors = () => {
             </Card>
           </Col>
         )}
+        <PrevNext item={tutor} page={page} func={getTutors} setLer={setPage} />
         <Modal
           title="Tutors"
           visible={isModalVisible}

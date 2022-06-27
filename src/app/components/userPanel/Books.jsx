@@ -2,6 +2,7 @@ import { Badge, Button, Card, Col, Row, Skeleton } from "antd";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../adminPanel/api";
+import PrevNext from "../mainComponents/PrevNext";
 import { user_token } from "./userApi";
 
 const { Meta } = Card;
@@ -34,51 +35,26 @@ const Books = () => {
           <Col xs={24} sm={24} md={12} xl={8} key={book._id}>
             <Card
               hoverable
-              style={{ width: "100%" }}
-              cover={<img alt="example" src={book.imgUrl} />}
+              style={{ width: "100%", height: "250px", objectFit: "cover" }}
+              cover={
+                <img
+                  alt="example"
+                  src={
+                    book.imgUrl.slice(0, 4) === "img/"
+                      ? `${URL}${book.imgUrl}`
+                      : book.imgUrl.slice(0, 4) === null ||
+                        book.imgUrl.slice(0, 4) !== "http"
+                      ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
+                      : book.imgUrl
+                  }
+                />
+              }
             >
               <Meta title={book.name} description="Awesome book" />
             </Card>
           </Col>
         ))}
-        <Row
-          span={24}
-          style={{ width: "100%" }}
-          className="d-flex align-items-center justify-content-between"
-        >
-          <Col>
-            <Button
-              type="primary"
-              disabled={page === 1 ? true : false}
-              onClick={() => {
-                setPage(page === 1 ? 1 : page - 1);
-                getBooks();
-              }}
-            >
-              Prev
-            </Button>
-          </Col>
-          <Col className="d-flex align-items-center">
-            <Badge
-              className="bg-primary text-light p-2 px-4 h6 mb-0 rounded"
-              size="large"
-            >
-              {page}
-            </Badge>
-          </Col>
-          <Col>
-            <Button
-              type="primary"
-              disabled={page === books.length ? true : false}
-              onClick={() => {
-                setPage(page === books.length ? books.length : page + 1);
-                getBooks();
-              }}
-            >
-              Next
-            </Button>
-          </Col>
-        </Row>
+        <PrevNext item={books} page={page} func={getBooks} setLer={setPage} />
       </Row>
     </div>
   );

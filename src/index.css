@@ -72,3 +72,12 @@ ul {
 a {
   text-decoration: none;
 }
+
+.ant-layout-content {
+  overflow-x: none !important;
+  overflow-y: auto !important;
+}
+
+.dropdown-menu {
+  padding: 0 0 !important;
+}
