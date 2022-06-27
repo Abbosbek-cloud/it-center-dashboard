@@ -91,7 +91,7 @@ const Tutors = () => {
             url: `${BASE_URL}employee/course`,
             method: "put",
             headers: {
-              Authorization: `Bearer ${apiFor}`,
+              Authorization: `Bearer ${token}`,
             },
             data: data,
           }).then((res) => {
