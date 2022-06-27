@@ -31,6 +31,8 @@ const formLayout = {
 };
 
 const token = localStorage.getItem("isAdminAuthenticated");
+const apiFor =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmFkNjAxOGRjMWY1ZjE5ZTViZWYxN2IiLCJpYXQiOjE2NTU2Mzk1NTksImV4cCI6MTY1NjI0NDM1OX0.cMBXv4G8Dsu0bCZwBtybfdebBRWxLvi44fhUepPj5UE";
 const Tutors = () => {
   const [tutor, setTutor] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -89,7 +91,7 @@ const Tutors = () => {
             url: `${BASE_URL}employee/course`,
             method: "put",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmFkNjAxOGRjMWY1ZjE5ZTViZWYxN2IiLCJpYXQiOjE2NTU2Mzk1NTksImV4cCI6MTY1NjI0NDM1OX0.cMBXv4G8Dsu0bCZwBtybfdebBRWxLvi44fhUepPj5UE`,
+              Authorization: `Bearer ${apiFor}`,
             },
             data: data,
           }).then((res) => {
