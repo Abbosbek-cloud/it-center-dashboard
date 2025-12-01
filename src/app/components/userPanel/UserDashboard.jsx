@@ -1,21 +1,9 @@
-import { EllipsisOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Dropdown,
-  Form,
-  Input,
-  Menu,
-  message,
-  Modal,
-  Row,
-  Space,
-} from "antd";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../adminPanel/api";
-import { user_token } from "./userApi";
+import { EllipsisOutlined } from '@ant-design/icons';
+import { Button, Col, Dropdown, Form, Input, Menu, message, Modal, Row, Space } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../adminPanel/api';
 
 const formLayout = {
   labelCol: {
@@ -34,7 +22,7 @@ const UserDashboard = () => {
     getUser();
   }, []);
 
-  const tokenOfUser = localStorage.getItem("Token");
+  const tokenOfUser = localStorage.getItem('Token');
 
   const navigate = useNavigate();
 
@@ -45,7 +33,7 @@ const UserDashboard = () => {
   const getUser = () => {
     axios({
       url: `${BASE_URL}user/getProfile`,
-      method: "get",
+      method: 'get',
       headers: {
         Authorization: `Bearer ${tokenOfUser}`,
       },
@@ -61,26 +49,26 @@ const UserDashboard = () => {
   const deleteUser = () => {
     axios({
       url: `${BASE_URL}user/delete`,
-      method: "delete",
+      method: 'delete',
       headers: {
         Authorization: `Bearer ${tokenOfUser}`,
       },
     }).then((res) => {
       localStorage.clear();
-      navigate("/");
+      navigate('/');
     });
   };
 
   const exit = () => {
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
       axios({
         url: `${BASE_URL}user/update`,
-        method: "put",
+        method: 'put',
         headers: {
           Authorization: `Bearer ${tokenOfUser}`,
         },
@@ -99,17 +87,17 @@ const UserDashboard = () => {
   const menu = (
     <Menu onClick={onClick}>
       <Menu.Item key="edit">
-        <Button style={{ width: "100%" }} onClick={editUser}>
+        <Button style={{ width: '100%' }} onClick={editUser}>
           Edit
         </Button>
       </Menu.Item>
       <Menu.Item key="delete">
-        <Button style={{ width: "100%" }} type="ghost" onClick={deleteUser}>
+        <Button style={{ width: '100%' }} type="ghost" onClick={deleteUser}>
           Delete
         </Button>
       </Menu.Item>
       <Menu.Item key="exit">
-        <Button style={{ width: "100%" }} onClick={exit}>
+        <Button style={{ width: '100%' }} onClick={exit}>
           Exit
         </Button>
       </Menu.Item>
@@ -125,10 +113,7 @@ const UserDashboard = () => {
           <Dropdown overlay={menu}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                <EllipsisOutlined
-                  className="h3 font-weight-bold"
-                  key="ellipsis"
-                />
+                <EllipsisOutlined className="h3 font-weight-bold" key="ellipsis" />
               </Space>
             </a>
           </Dropdown>

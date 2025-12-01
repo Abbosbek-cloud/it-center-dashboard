@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Layout, Menu } from "antd";
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -7,8 +7,8 @@ import {
   BookOutlined,
   FolderOpenOutlined,
   LeftSquareOutlined,
-} from "@ant-design/icons";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+} from '@ant-design/icons';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,7 +16,7 @@ const Navbar = (props) => {
   const [collapsed, setCllapsed] = useState(false);
   useEffect(() => {
     if (isAdmin === null || undefined) {
-      navigate("/login");
+      navigate('/login');
     }
     console.log(isAdmin);
   }, []);
@@ -25,10 +25,10 @@ const Navbar = (props) => {
     setCllapsed(!collapsed);
   };
 
-  const isAdmin = localStorage.getItem("isAdminAuthenticated");
+  const isAdmin = localStorage.getItem('isAdminAuthenticated');
 
   const exit = () => {
-    navigate("/");
+    navigate('/');
     localStorage.clear();
   };
 
@@ -58,21 +58,18 @@ const Navbar = (props) => {
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: toggle,
-              }
-            )}
+            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+              className: 'trigger',
+              onClick: toggle,
+            })}
           </Header>
           <Content
             className="site-layout-background"
             style={{
-              margin: "24px 16px",
+              margin: '24px 16px',
               padding: 24,
               minHeight: 280,
-              overflow: "scroll",
+              overflow: 'scroll',
             }}
           >
             <Outlet />

@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import "../landing.css";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from "react-router-dom";
-import { Button } from "antd";
-import WestCo from "./assets/westco.jpg";
-import axios from "axios";
-import LandingSearchComp from "./components/landing/LandingSearchComp";
+import React, { useEffect, useState } from 'react';
+import '../landing.css';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
+import { Button } from 'antd';
+import WestCo from './assets/westco.jpg';
+import axios from 'axios';
+import LandingSearchComp from './components/landing/LandingSearchComp';
 
-const BASE_URL = "https://coursesnodejs.herokuapp.com/";
+const BASE_URL = 'https://coursesnodejs.herokuapp.com/';
 
-const token = localStorage.getItem("isAdminAuthenticated");
+const token = localStorage.getItem('isAdminAuthenticated');
 
 const LandingPage = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [tutor, setTutor] = useState([]);
   const [book, setBook] = useState([]);
   const [searched, setSearched] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isShow, setIsshow] = useState(false);
   const [productSelected, setProductSelected] = useState([]);
-  const [isShown, setisShown] = useState(false);
 
   useEffect(() => {
     getTutors();
@@ -33,7 +32,7 @@ const LandingPage = () => {
   const getTutors = () => {
     axios({
       url: `${BASE_URL}employee/course?limit=10&page=1`,
-      method: "get",
+      method: 'get',
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -45,7 +44,7 @@ const LandingPage = () => {
 
   const getBooks = () => {
     axios({
-      method: "get",
+      method: 'get',
       url: `${BASE_URL}employee/book?limit=10000&page=1`,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -65,8 +64,8 @@ const LandingPage = () => {
     }
   };
 
-  const isAdmin = localStorage.getItem("userToken");
-  const adminExist = localStorage.getItem("isAdminAuthenticated");
+  const isAdmin = localStorage.getItem('userToken');
+  const adminExist = localStorage.getItem('isAdminAuthenticated');
 
   // functions
   const handleChange = (e) => {
@@ -78,13 +77,9 @@ const LandingPage = () => {
   };
 
   const searchBook = (str) => {
-    const filteredTutor = tutor.filter(
-      (item) => item.name.toLowerCase() === str.toLowerCase()
-    );
+    const filteredTutor = tutor.filter((item) => item.name.toLowerCase() === str.toLowerCase());
 
-    const filteredBook = book.filter(
-      (item) => item.name.toLowerCase() === str.toLowerCase()
-    );
+    const filteredBook = book.filter((item) => item.name.toLowerCase() === str.toLowerCase());
 
     const checkIfExist = (books, tutors) => {
       if (books.length === 0) {
@@ -103,10 +98,7 @@ const LandingPage = () => {
         <Container fluid>
           <Navbar.Brand href="#">
             <Link className="text-decoration-none" to="/">
-              <img
-                src={WestCo}
-                style={{ width: "35px", height: "35px", borderRadius: "50%" }}
-              />
+              <img src={WestCo} style={{ width: '35px', height: '35px', borderRadius: '50%' }} />
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -117,16 +109,9 @@ const LandingPage = () => {
                   Home
                 </Link>
               </Nav.Link>
-              <NavDropdown
-                className="py-0"
-                title="Authorization"
-                id="navbarScrollingDropdown"
-              >
+              <NavDropdown className="py-0" title="Authorization" id="navbarScrollingDropdown">
                 <NavDropdown.Item className="px-0 py-0">
-                  <Link
-                    className="h3 text-decoration-none w-100 p-2 my-0 text-center d-block"
-                    to="/login"
-                  >
+                  <Link className="h3 text-decoration-none w-100 p-2 my-0 text-center d-block" to="/login">
                     Login
                   </Link>
                 </NavDropdown.Item>
@@ -135,15 +120,12 @@ const LandingPage = () => {
                   {isAdmin || adminExist ? (
                     <Link
                       className="h3 text-decoration-none w-100 p-2 my-0 text-center d-block"
-                      to={adminExist ? "/admin" : "/user"}
+                      to={adminExist ? '/admin' : '/user'}
                     >
                       Profil
                     </Link>
                   ) : (
-                    <Link
-                      className="h3 text-decoration-none w-100 p-2"
-                      to="/signup"
-                    >
+                    <Link className="h3 text-decoration-none w-100 p-2" to="/signup">
                       Sign Up
                     </Link>
                   )}

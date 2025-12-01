@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { formLayout } from "./adminPanel/Students";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "./adminPanel/api";
-import { userToken } from "../constants/api";
+import React, { useState, useEffect } from 'react';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { formLayout } from './adminPanel/Students';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { BASE_URL } from './adminPanel/api';
+import { userToken } from '../constants/api';
 
 const Signup = () => {
   const form = Form.useForm();
@@ -16,7 +16,7 @@ const Signup = () => {
 
   const getUser = (data) => {
     axios({
-      method: "post",
+      method: 'post',
       url: `${BASE_URL}user/sign-up`,
       data: data,
     }).then((res) => {
@@ -27,21 +27,21 @@ const Signup = () => {
 
   const handleUser = (token) => {
     navigate(`/user`);
-    localStorage.setItem("Token", token);
+    localStorage.setItem('Token', token);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-    navigate("/signup");
+    console.log('Failed:', errorInfo);
+    navigate('/signup');
   };
 
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
       }}
     >
       <Form
@@ -60,7 +60,7 @@ const Signup = () => {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: 'Please input your username!',
             },
           ]}
         >
@@ -73,7 +73,7 @@ const Signup = () => {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: 'Please input your password!',
             },
           ]}
         >

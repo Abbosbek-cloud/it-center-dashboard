@@ -1,11 +1,11 @@
-import { Button, Card, Col, Form, Input, Modal, Row, Select } from "antd";
-import Meta from "antd/lib/card/Meta";
-import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { BASE_URL } from "../adminPanel/api";
-import PrevNext from "../mainComponents/PrevNext";
-import { user_token } from "./userApi";
+import { Button, Card, Col, Form, Modal, Row, Select } from 'antd';
+import Meta from 'antd/lib/card/Meta';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { BASE_URL } from '../adminPanel/api';
+import PrevNext from '../mainComponents/PrevNext';
+import { user_token } from './userApi';
 
 const formLayout = {
   labelCol: {
@@ -31,7 +31,7 @@ const Tutor = () => {
   const getCourses = () => {
     axios({
       url: `${BASE_URL}user/course?limit=10&page=${page}`,
-      method: "get",
+      method: 'get',
       headers: { Authorization: `Bearer ${user_token}` },
     }).then((res) => {
       setCourses(res.data.data.data);
@@ -43,7 +43,7 @@ const Tutor = () => {
     form.validateFields().then((values) => {
       axios({
         url: `${BASE_URL}user/coursesUser`,
-        method: "post",
+        method: 'post',
         headers: { Authorization: `Bearer ${user_token}` },
         data: values,
       }).then((res) => {
@@ -67,7 +67,7 @@ const Tutor = () => {
 
   console.log(courses);
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: '100%' }}>
       <Row className="d-flex justify-content-between align-items-center">
         <Col>
           <h1>Kurslar</h1>
@@ -84,15 +84,14 @@ const Tutor = () => {
             <Col xs={24} sm={24} md={12} xl={8} xxl={6}>
               <Card
                 hoverable
-                style={{ width: "100%", height: "250px", objectFit: "cover" }}
+                style={{ width: '100%', height: '250px', objectFit: 'cover' }}
                 cover={
                   <img
                     alt="example"
                     src={
-                      course.imgUrl.slice(0, 4) === "img/"
+                      course.imgUrl.slice(0, 4) === 'img/'
                         ? `${URL}${course.imgUrl}`
-                        : course.imgUrl.slice(0, 4) === null ||
-                          course.imgUrl.slice(0, 4) !== "http"
+                        : course.imgUrl.slice(0, 4) === null || course.imgUrl.slice(0, 4) !== 'http'
                         ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
                         : course.imgUrl
                     }
@@ -100,10 +99,7 @@ const Tutor = () => {
                 }
                 loading={courses.length ? false : true}
               >
-                <Meta
-                  title={course.description}
-                  description="www.instagram.com"
-                />
+                <Meta title={course.description} description="www.instagram.com" />
               </Card>
             </Col>
           ))
@@ -113,17 +109,9 @@ const Tutor = () => {
               hoverable
               style={{ width: 240 }}
               loading={loading}
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }
+              cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
             >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
+              <Meta title="Europe Street beat" description="www.instagram.com" />
             </Card>
           </Col>
         )}
@@ -142,7 +130,7 @@ const Tutor = () => {
             {courses.map((course) => (
               <Select
                 style={{
-                  width: "100%",
+                  width: '100%',
                 }}
                 onChange={handleChange}
               >

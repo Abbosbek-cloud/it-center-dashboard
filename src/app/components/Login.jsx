@@ -1,8 +1,8 @@
-import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { formLayout } from "./adminPanel/Students";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Button, Form, Input } from 'antd';
+import { formLayout } from './adminPanel/Students';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const form = Form.useForm();
@@ -10,22 +10,22 @@ const Login = () => {
   const navigate = useNavigate();
   const onFinish = (values) => {
     console.log(values);
-    if (values.username === "Admin" && values.password === "student2") {
+    if (values.username === 'Admin' && values.password === 'student2') {
       getAdmin(values);
-    } else if (values.password !== "student") {
+    } else if (values.password !== 'student') {
       getUser(values);
     } else {
-      navigate("/signup");
+      navigate('/signup');
     }
   };
 
   const getAdmin = (data) => {
     axios({
-      method: "post",
-      url: "https://coursesnodejs.herokuapp.com/employee/sign-in",
+      method: 'post',
+      url: 'https://coursesnodejs.herokuapp.com/employee/sign-in',
       data: data,
     }).then((res) => {
-      if (res.status === 200 && data.password === "student2") {
+      if (res.status === 200 && data.password === 'student2') {
         handleAdmin(res.data.data.token);
       }
     });
@@ -33,8 +33,8 @@ const Login = () => {
 
   const getUser = (data) => {
     axios({
-      method: "post",
-      url: "https://coursesnodejs.herokuapp.com/user/sign-in",
+      method: 'post',
+      url: 'https://coursesnodejs.herokuapp.com/user/sign-in',
       data: data,
     }).then((res) => {
       handleUser();
@@ -42,8 +42,8 @@ const Login = () => {
   };
 
   const handleAdmin = (token) => {
-    localStorage.setItem("isAdminAuthenticated", token);
-    navigate("/admin/dashboard");
+    localStorage.setItem('isAdminAuthenticated', token);
+    navigate('/admin/dashboard');
   };
 
   const handleUser = () => {
@@ -51,17 +51,17 @@ const Login = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-    navigate("/signup");
+    console.log('Failed:', errorInfo);
+    navigate('/signup');
   };
 
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
       }}
     >
       <Form
@@ -80,7 +80,7 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: 'Please input your username!',
             },
           ]}
         >
@@ -93,7 +93,7 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: 'Please input your password!',
             },
           ]}
         >

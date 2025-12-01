@@ -1,8 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SearchedItem from "./SearchedItem";
+import React from 'react';
+import SearchedItem from './SearchedItem';
 
-const BASE_URL = "https://coursesnodejs.herokuapp.com/";
+const BASE_URL = 'https://coursesnodejs.herokuapp.com/';
 
 const ListOfSearchedData = ({ data, dataHandler, dataOne, setler }) => {
   return (
@@ -17,13 +16,12 @@ const ListOfSearchedData = ({ data, dataHandler, dataOne, setler }) => {
             dataHandler(item._id);
           }}
         >
-          <div className="img-wrappers" style={{ width: "30%" }}>
+          <div className="img-wrappers" style={{ width: '30%' }}>
             <img
               src={
-                item.imgUrl.slice(0, 4) === "img/"
+                item.imgUrl.slice(0, 4) === 'img/'
                   ? `${BASE_URL}${item.imgUrl}`
-                  : item.imgUrl.slice(0, 4) === null ||
-                    item.imgUrl.slice(0, 4) !== "http"
+                  : item.imgUrl.slice(0, 4) === null || item.imgUrl.slice(0, 4) !== 'http'
                   ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
                   : item.imgUrl
               }
@@ -32,8 +30,8 @@ const ListOfSearchedData = ({ data, dataHandler, dataOne, setler }) => {
               }}
               // onError={(e)=>}
               style={{
-                width: "100%",
-                objectFit: "cover",
+                width: '100%',
+                objectFit: 'cover',
               }}
               alt="lorem"
             />

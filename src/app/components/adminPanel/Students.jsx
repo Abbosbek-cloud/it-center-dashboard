@@ -1,27 +1,9 @@
-import {
-  Avatar,
-  Badge,
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  message,
-  Modal,
-  Row,
-  Select,
-  Skeleton,
-} from "antd";
-import React, { useEffect, useState } from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import axios from "axios";
-import { BASE_URL } from "./api";
-import PrevNext from "../mainComponents/PrevNext";
+import { Avatar, Button, Card, Col, Form, Input, message, Modal, Row, Select, Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { DeleteOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { BASE_URL } from './api';
+import PrevNext from '../mainComponents/PrevNext';
 
 export const formLayout = {
   labelCol: {
@@ -39,12 +21,12 @@ const Students = () => {
   const [admins, setAdmins] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   const { Meta } = Card;
-  const apiToken = localStorage.getItem("isAdminAuthenticated");
+  const apiToken = localStorage.getItem('isAdminAuthenticated');
   useEffect(() => {
     getBooks();
     getCategories();
@@ -55,7 +37,7 @@ const Students = () => {
   const getAdmins = () => {
     axios({
       url: `${BASE_URL}employee/paging?page=1&limit=5`,
-      method: "get",
+      method: 'get',
       headers: {
         Authorization: `Bearer ${apiToken}`,
       },
@@ -65,7 +47,7 @@ const Students = () => {
   const getCategories = () => {
     axios({
       url: `${BASE_URL}employee/category?limit=5&page=1`,
-      method: "get",
+      method: 'get',
       headers: {
         Authorization: `Bearer ${apiToken}`,
       },
@@ -77,7 +59,7 @@ const Students = () => {
   const getAuthor = () => {
     axios({
       url: `${BASE_URL}employee/author?page=1&limit=5`,
-      method: "get",
+      method: 'get',
       headers: {
         Authorization: `Bearer ${apiToken}`,
       },
@@ -88,7 +70,7 @@ const Students = () => {
 
   const getBooks = () => {
     axios({
-      method: "get",
+      method: 'get',
       url: `${BASE_URL}employee/book?limit=10&page=${page < 1 ? 1 : page}`,
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -111,7 +93,7 @@ const Students = () => {
   const onDelete = (aBook) => {
     axios({
       url: `${BASE_URL}employee/book/${aBook._id}`,
-      method: "delete",
+      method: 'delete',
       headers: {
         Authorization: `Bearer ${apiToken}`,
       },
@@ -131,7 +113,7 @@ const Students = () => {
       selected
         ? axios({
             url: `${BASE_URL}employee/book`,
-            method: "put",
+            method: 'put',
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
@@ -140,11 +122,11 @@ const Students = () => {
             getBooks();
             setIsModalVisible(false);
             form.resetFields();
-            setSelected("");
+            setSelected('');
           })
         : axios({
             url: `${BASE_URL}employee/book`,
-            method: "post",
+            method: 'post',
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
@@ -175,22 +157,21 @@ const Students = () => {
             <Col key={item._id} xs={24} sm={12} md={8} xl={6}>
               <Card
                 style={{
-                  width: "100%",
+                  width: '100%',
                   marginTop: 16,
                   flex: 1,
                 }}
                 cover={
                   <img
                     style={{
-                      width: "100%",
-                      height: "250px",
-                      objectFit: "cover",
+                      width: '100%',
+                      height: '250px',
+                      objectFit: 'cover',
                     }}
                     src={
-                      item.imgUrl.slice(0, 4) === "img/"
+                      item.imgUrl.slice(0, 4) === 'img/'
                         ? `${BASE_URL}${item.imgUrl}`
-                        : item.imgUrl.slice(0, 4) === null ||
-                          item.imgUrl.slice(0, 4) !== "http"
+                        : item.imgUrl.slice(0, 4) === null || item.imgUrl.slice(0, 4) !== 'http'
                         ? `https://images.unsplash.com/photo-1655909248336-7b1491cf58b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80`
                         : item.imgUrl
                     }
@@ -202,14 +183,11 @@ const Students = () => {
                 actions={[
                   <SettingOutlined key="setting" />,
                   <EditOutlined key="edit" onClick={() => onEdit(item)} />,
-                  <DeleteOutlined
-                    key="delete"
-                    onClick={() => onDelete(item)}
-                  />,
+                  <DeleteOutlined key="delete" onClick={() => onDelete(item)} />,
                 ]}
               >
                 <Skeleton loading={false} avatar active>
-                  <Meta title={item.name.split(",").slice(0, 1)} />
+                  <Meta title={item.name.split(',').slice(0, 1)} />
                 </Skeleton>
               </Card>
             </Col>
@@ -218,7 +196,7 @@ const Students = () => {
           <Col>
             <Card
               style={{
-                width: "100%",
+                width: '100%',
                 marginTop: 16,
               }}
               actions={[
@@ -243,36 +221,20 @@ const Students = () => {
           visible={isModalVisible}
           onOk={saveBook}
           onCancel={handleCancel}
-          okText={selected ? "Qo'shish" : "Saqlash"}
+          okText={selected ? "Qo'shish" : 'Saqlash'}
           cancelText="Yopish"
         >
           <Form {...formLayout} form={form}>
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: "To'ldirilmagan" }]}
-            >
+            <Form.Item label="Name" name="name" rules={[{ required: true, message: "To'ldirilmagan" }]}>
               <Input placeholder="Enter tutor name" />
             </Form.Item>
-            <Form.Item
-              label="Image url"
-              name="imgUrl"
-              rules={[{ required: true, message: "To'ldirilmagan" }]}
-            >
+            <Form.Item label="Image url" name="imgUrl" rules={[{ required: true, message: "To'ldirilmagan" }]}>
               <Input placeholder="Enter img url" />
             </Form.Item>
-            <Form.Item
-              label="E Book Url"
-              name="ebookUrl"
-              rules={[{ required: true, message: "To'ldirilmagan" }]}
-            >
+            <Form.Item label="E Book Url" name="ebookUrl" rules={[{ required: true, message: "To'ldirilmagan" }]}>
               <Input placeholder="Enter eBookUrl" />
             </Form.Item>
-            <Form.Item
-              label="Description"
-              name="description"
-              rules={[{ required: true, message: "To'ldirilmagan" }]}
-            >
+            <Form.Item label="Description" name="description" rules={[{ required: true, message: "To'ldirilmagan" }]}>
               <Input placeholder="Enter description for the book" />
             </Form.Item>
             <Form.Item label="Category for book" name="categoryId">
@@ -287,9 +249,7 @@ const Students = () => {
             <Form.Item label="Author for book" name="authorId">
               <Select>
                 {authors.map((author) => (
-                  <Select.Option value={author._id}>
-                    {author.fullName.toUpperCase()}
-                  </Select.Option>
+                  <Select.Option value={author._id}>{author.fullName.toUpperCase()}</Select.Option>
                 ))}
               </Select>
             </Form.Item>

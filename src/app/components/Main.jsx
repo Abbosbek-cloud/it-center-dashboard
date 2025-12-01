@@ -1,15 +1,10 @@
-import { Card, Col, Row } from "antd";
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { URL } from "../constants/api";
-import { Tabs } from "antd";
-import { v4 as uuidv4 } from "uuid";
-import Kurslar from "./mainComponents/Kurslar";
-import Kitoblar from "./mainComponents/Kitoblar";
-// import Meta from "antd/lib/card/Meta";
+import { Card } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Tabs } from 'antd';
+import Kurslar from './mainComponents/Kurslar';
+import Kitoblar from './mainComponents/Kitoblar';
+
 const { Meta } = Card;
 const { TabPane } = Tabs;
 
@@ -17,17 +12,17 @@ const Main = () => {
   const onChange = (key) => {
     // console.log(key);
   };
-  const isAdmin = localStorage.getItem("userToken");
-  const adminExist = localStorage.getItem("isAdminAuthenticated");
+  const isAdmin = localStorage.getItem('userToken');
+  const adminExist = localStorage.getItem('isAdminAuthenticated');
 
   const styles = {
     ul: {
-      listStyle: "none",
+      listStyle: 'none',
       margin: 0,
       padding: 0,
     },
     link: {
-      textDecoration: "none",
+      textDecoration: 'none',
     },
   };
 
@@ -52,11 +47,7 @@ const Main = () => {
             </li>
             <li>
               {isAdmin || adminExist ? (
-                <Link
-                  style={styles.link}
-                  className="h3"
-                  to={adminExist ? "/admin" : "/user"}
-                >
+                <Link style={styles.link} className="h3" to={adminExist ? '/admin' : '/user'}>
                   Profil
                 </Link>
               ) : (

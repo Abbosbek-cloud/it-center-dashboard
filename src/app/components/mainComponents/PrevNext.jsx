@@ -1,13 +1,9 @@
-import { Badge, Button, Col, Row } from "antd";
-import React from "react";
+import { Badge, Button, Col, Row } from 'antd';
+import React from 'react';
 
 const PrevNext = ({ item, page, func, setLer }) => {
   return (
-    <Row
-      span={24}
-      style={{ width: "100%" }}
-      className="d-flex align-items-center justify-content-between"
-    >
+    <Row span={24} style={{ width: '100%' }} className="d-flex align-items-center justify-content-between">
       <Col>
         <Button
           type="primary"
@@ -21,10 +17,7 @@ const PrevNext = ({ item, page, func, setLer }) => {
         </Button>
       </Col>
       <Col className="d-flex align-items-center">
-        <Badge
-          className="bg-primary text-light p-2 px-4 h6 mb-0 rounded"
-          size="large"
-        >
+        <Badge className="bg-primary text-light p-2 px-4 h6 mb-0 rounded" size="large">
           {page}
         </Badge>
       </Col>
