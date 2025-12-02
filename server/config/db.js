@@ -6,9 +6,8 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-export const connectDB = async () => {
+export async function connectDB() {
   if (cached.conn) {
-    console.log('✅ Using cached MongoDB connection');
     return cached.conn;
   }
 
@@ -16,17 +15,15 @@ export const connectDB = async () => {
     const opts = {
       bufferCommands: false,
       maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
     };
 
     if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI is not defined');
+      throw new Error('MONGODB_URI environment variable is not set');
     }
 
-    console.log('⏳ Creating new MongoDB connection...');
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
-      console.log('✅ MongoDB Connected:', mongoose.connection.host);
-      return mongoose;
-    });
+    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts);
   }
 
   try {
@@ -37,4 +34,4 @@ export const connectDB = async () => {
   }
 
   return cached.conn;
-};
+}
